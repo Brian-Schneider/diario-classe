@@ -27,6 +27,22 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
         working-directory: ./diario-classe-backend
+        env:
+          POSTGRESHOST: ${{ secrets.POSTGRESHOST }}
+          POSTGRESPORT: ${{ env.POSTGRESPORT }}
+          POSTGRESDATABASE: ${{ secrets.POSTGRESDATABASE }}
+          POSTGRESUSER: ${{ secrets.POSTGRESUSER }}
+          POSTGRESPASSWORD: ${{ secrets.POSTGRESPASSWORD }}
+          ADMIN_EMAIL: ${{ env.ADMIN_EMAIL }}
+          ADMIN_NAME: ${{ env.ADMIN_NAME }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          COORDENACAO_EMAIL: ${{ secrets.COORDENACAO_EMAIL }}
+          EMAIL_APLICATIVO: ${{ secrets.EMAIL_APLICATIVO }}
+          HOST_APLICATIVO: ${{ env.HOST_APLICATIVO }}
+          PORT_APLICATIVO: ${{ env.PORT_APLICATIVO }}
+          SECRET: ${{ secrets.SECRET }}
+          SENHA_APLICATIVO: ${{ secrets.SENHA_APLICATIVO }}
+
 
 
       - name: Upload artifact for deployment job
