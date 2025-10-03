@@ -25,10 +25,11 @@ public class EmailServiceTest {
 
     @RegisterExtension
     static GreenMailExtension greenMail = new GreenMailExtension(ServerSetupTest.SMTP)
-            .withConfiguration(GreenMailConfiguration.aConfig().withUser("admin@admin.com", "Admin123"));
+            .withConfiguration(GreenMailConfiguration.aConfig().withDisabledAuthentication())
+            .withPerMethodLifecycle(false);
 
 
-    // Injeta o host e porta reais do GreenMail na config do Spring Mail
+                    // Injeta o host e porta reais do GreenMail na config do Spring Mail
     @DynamicPropertySource
     static void mailProps(DynamicPropertyRegistry r) {
         r.add("spring.mail.host", () -> "localhost");
@@ -36,7 +37,7 @@ public class EmailServiceTest {
         r.add("spring.mail.protocol", () -> "smtp");
         r.add("spring.mail.username", () -> "admin@admin.com");
         r.add("spring.mail.password", () -> "Admin123");
-        r.add("spring.mail.properties.mail.smtp.auth", () -> "true");
+        r.add("spring.mail.properties.mail.smtp.auth", () -> "false");
         r.add("spring.mail.properties.mail.smtp.starttls.enable", () -> "false"); // SMTP simples
         r.add("spring.mail.properties.mail.debug", () -> "true");
     }
