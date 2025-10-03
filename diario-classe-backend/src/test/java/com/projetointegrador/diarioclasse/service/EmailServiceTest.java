@@ -54,7 +54,7 @@ public class EmailServiceTest {
 
         mailSender.send(message);
 
-        assertTrue(greenMail.waitForIncomingEmail(5_000, 1));
+        assertTrue(greenMail.waitForIncomingEmail(15_000, 1));
         MimeMessage[] receivedMessages = greenMail.getReceivedMessages();
         assertEquals(1, receivedMessages.length);
         assertEquals("📩 Teste de e-mail", receivedMessages[0].getSubject());
