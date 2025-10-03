@@ -7,7 +7,6 @@ import com.icegreen.greenmail.util.GreenMailUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,15 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 public class EmailServiceTest {
 
-    @Value("${spring.mail.username}")
-    private static String emailCoordenacao;
-
-    @Value("${spring.mail.password}")
-    private static String senhaEmailCoordenacao;
 
     @RegisterExtension
     static GreenMailExtension greenMail = new GreenMailExtension(ServerSetupTest.SMTP)
-            .withConfiguration(GreenMailConfiguration.aConfig().withUser(emailCoordenacao, senhaEmailCoordenacao));
+            .withConfiguration(GreenMailConfiguration.aConfig().withUser("admin@admin.com", "Admin123"));
 
     @Autowired
     private JavaMailSender mailSender;
