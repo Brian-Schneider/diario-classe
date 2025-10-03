@@ -11,6 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.DynamicPropertyRegistry;
+
+
 import jakarta.mail.internet.MimeMessage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,6 +26,20 @@ public class EmailServiceTest {
     @RegisterExtension
     static GreenMailExtension greenMail = new GreenMailExtension(ServerSetupTest.SMTP)
             .withConfiguration(GreenMailConfiguration.aConfig().withUser("admin@admin.com", "Admin123"));
+
+
+    // Injeta o host e porta reais do GreenMail na config do Spring Mail
+    @DynamicPropertySource
+    static void mailProps(DynamicPropertyRegistry r) {
+        r.add("spring.mail.host", () -> "localhost");
+        r.add("spring.mail.port", () -> greenMail.getSmtp().getPort());
+        r.add("spring.mail.protocol", () -> "smtp");
+        r.add("spring.mail.username", () -> "admin@admin.com");
+        r.add("spring.mail.password", () -> "Admin123");
+        r.add("spring.mail.properties.mail.smtp.auth", () -> "true");
+        r.add("spring.mail.properties.mail.smtp.starttls.enable", () -> "false"); // SMTP simples
+        r.add("spring.mail.properties.mail.debug", () -> "true");
+    }
 
     @Autowired
     private JavaMailSender mailSender;
