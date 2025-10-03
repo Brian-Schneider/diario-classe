@@ -53,3 +53,9 @@ jobs:
           slot-name: 'Production'
           package: '*.jar'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
+        env:
+          POSTGRESHOST: ${{ secrets.POSTGRESHOST }}
+          POSTGRESPORT: ${{ secrets.POSTGRESPORT }}
+          POSTGRESDATABASE: ${{ secrets.POSTGRESDATABASE }}
+          POSTGRESUSER: ${{ secrets.POSTGRESUSER }}
+          POSTGRESPASSWORD: ${{ secrets.POSTGRESPASSWORD }}
